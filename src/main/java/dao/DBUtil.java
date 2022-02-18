@@ -26,7 +26,7 @@ public class DBUtil {
 //		step 2
 		String connectionUrl = "jdbc:postgresql://localhost:5432/bank";
 		String userName = "postgres";
-		String password = "th3R0ck46312";
+		String password = "1234";
 		
 		if(conn == null) {
 			try {
