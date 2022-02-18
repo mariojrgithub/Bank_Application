@@ -50,6 +50,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public EmployeePojo loginEmployee(String email, String password) {
 		
 		EmployeePojo employeePojo = null;
+		EmployeePojo employeePojo2 = null;
 		
 		Connection conn = DBUtil.obtainConnection();
 		
@@ -59,12 +60,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			employeePojo = fetchOneEmployee(email);
 			
 			String query = "SELECT * FROM employees WHERE "
-							+ " email=" + "'" + employeePojo.getEmail() + "'" + " AND password=" + "'" + employeePojo.getPassword() + "'";
+							+ " email=" + "'" + employeePojo.getEmail() + "'" + " AND password=" + "'" + password + "'";
 			
 			ResultSet rs = stmt.executeQuery(query);
 			
 			 if(rs.next()) { 
-				 	employeePojo = new EmployeePojo(rs.getInt(1), rs.getString(2), 
+				 	employeePojo2 = new EmployeePojo(rs.getInt(1), rs.getString(2), 
 					rs.getString(3), rs.getString(4), 
 					rs.getLong(5), rs.getString(6));
 			 }
@@ -75,7 +76,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		
 		
-		return employeePojo;
+		return employeePojo2;
 	}
 
 	@Override
