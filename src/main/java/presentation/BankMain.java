@@ -1,7 +1,10 @@
 package presentation;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
+import pojo.CustomerPojo;
 import pojo.EmployeePojo;
 import service.EmployeeService;
 import service.EmployeeServiceImpl;
@@ -42,11 +45,6 @@ public class BankMain {
 					
 					foundEmployee = employeeService.fetchOneEmployee(employeeEmail);
 					
-					if(foundEmployee != null) {
-						System.out.println(foundEmployee);
-					}
-					
-					
 					System.out.println("Enter Employee Password: ");
 					String employeePassword = scan.next();
 					
@@ -62,6 +60,34 @@ public class BankMain {
 					System.out.println("Employee Name: " + fetchedEmployee.getFirstName() + " " + fetchedEmployee.getLastName());
 					System.out.println("Employee Email: " + fetchedEmployee.getEmail());
 					System.out.println("Employee Phone Number: " + fetchedEmployee.getPhoneNumber());
+					
+					System.out.println("********************************");
+					System.out.println("1. List all Customers");
+					System.out.println("2. Create a Customer");
+					
+					int option2 = scan.nextInt();
+					
+					if(option2 == 1) {
+						
+						List<CustomerPojo> allCustomers;
+						
+						allCustomers = employeeService.fetchAllCustomers();
+						
+						// iterate through all customers
+						Iterator<CustomerPojo> itr = allCustomers.iterator();
+						
+						System.out.println("********************************************");
+						System.out.println("Customer List:");
+						System.out.println("ID\t\tNAME\t\t\tPHONE\t\tEMAIL\t\tBALANCE");
+						
+						while(itr.hasNext()) {
+							CustomerPojo customer = itr.next();
+							System.out.println(customer.getCustomerId() + "\t" + customer.getFirstName() + " " + customer.getLastName() + "\t" + customer.getPhoneNumber() + "\t" + customer.getEmail() + "\t" + customer.getBalance());
+						}
+						System.out.println("********************************************");
+					}
+					
+					
 					break;
 					
 				case 4:

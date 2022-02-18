@@ -51,8 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<CustomerPojo> fetchAllCustomers() {
-		// TODO Auto-generated method stub
-		return null;
+		return employeeDao.fetchAllCustomers();
 	}
 
 }

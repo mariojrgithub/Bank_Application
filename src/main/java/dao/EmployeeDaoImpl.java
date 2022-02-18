@@ -92,8 +92,35 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public List<CustomerPojo> fetchAllCustomers() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// create ArrayList of all customers from DB
+		List<CustomerPojo> allCustomers = new ArrayList<>();
+		
+		Connection conn = DBUtil.obtainConnection();
+		
+		try {
+			Statement stmt = conn.createStatement();
+			
+			String query = "SELECT * FROM customers";
+			
+			ResultSet rs = stmt.executeQuery(query);
+			
+			// iterate through result set
+			while(rs.next()) {
+				// copy each customer into a CustomerPojo
+				CustomerPojo customerPojo = new CustomerPojo(rs.getInt(1), rs.getString(2), 
+															 rs.getString(3), rs.getString(4), 
+															 rs.getLong(5), rs.getString(6), rs.getInt(7));
+				// add customer to ArrayList
+				allCustomers.add(customerPojo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return allCustomers;
 	}
 
 	@Override
