@@ -1,5 +1,6 @@
 package presentation;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class BankMain {
 			System.out.println("****************************************");
 			System.out.println("1. Login Employee");
 			System.out.println("2. Login Customer");
-			System.out.println("3. Exit");
+			System.out.println("3. Exit Bank");
 			System.out.println("****************************************");
 			System.out.println("Please enter a menu option: ");
 
@@ -85,8 +86,18 @@ public class BankMain {
 					System.out.println("2. Create a Customer");
 					System.out.println("3. Logout and Return to Main Menu");
 					System.out.println("********************************");
+					
+					List<Integer> employeeListOptions = new ArrayList<>();
+					employeeListOptions.add(1);
+					employeeListOptions.add(2);
+					employeeListOptions.add(3);
+					
 
 					int option2 = scan.nextInt();
+					
+					if(!employeeListOptions.contains(option2)) {
+						System.out.println("Please enter a valid menu option!");
+					}
 
 					if (option2 == 1) {
 
