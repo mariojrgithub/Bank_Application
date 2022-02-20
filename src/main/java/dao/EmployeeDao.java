@@ -16,11 +16,8 @@ public interface EmployeeDao {
 	// login
 	EmployeePojo loginEmployee(String email, String password);
 	
-	// logout
-	EmployeePojo logoutEmployee(EmployeePojo employeePojo);
-	
 	// register new customer
-	CustomerPojo createNewCustomer(CustomerPojo customerPojo);
+	CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId);
 	
 	// list all customers
 	List<CustomerPojo> fetchAllCustomers();

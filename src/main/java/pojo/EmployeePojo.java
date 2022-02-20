@@ -8,6 +8,7 @@ public class EmployeePojo {
 	private String lastName;
 	private long phoneNumber;
 	private String email;
+	private String created_on;
 	
 	public EmployeePojo() {
 		super();
@@ -15,7 +16,7 @@ public class EmployeePojo {
 	}
 	
 	public EmployeePojo(int employeeId, String password, String firstName, String lastName, long phoneNumber,
-			String email) {
+			String email, String created_on) {
 		super();
 		this.employeeId = employeeId;
 		this.password = password;
@@ -77,6 +78,14 @@ public class EmployeePojo {
 	public String toString() {
 		return "EmployeePojo [employeeId=" + employeeId + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+	}
+
+	public String getCreated_on() {
+		return created_on;
+	}
+
+	public void setCreated_on(String created_on) {
+		this.created_on = created_on;
 	}
 	
 	

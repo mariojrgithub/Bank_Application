@@ -38,15 +38,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeePojo logoutEmployee(EmployeePojo employeePojo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CustomerPojo createNewCustomer(CustomerPojo customerPojo) {
-		// TODO Auto-generated method stub
-		return null;
+	public CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId) {
+		
+		return employeeDao.createNewCustomer(customerPojo, employeeId);
+		
 	}
 
 	@Override
