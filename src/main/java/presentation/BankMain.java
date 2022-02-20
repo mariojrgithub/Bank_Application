@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
+import service.CustomerService;
+import service.CustomerServiceImpl;
 import service.EmployeeService;
 import service.EmployeeServiceImpl;
 
@@ -15,6 +17,7 @@ public class BankMain {
 	public static void main(String[] args) {
 
 		EmployeeService employeeService = new EmployeeServiceImpl();
+		CustomerService customerService = new CustomerServiceImpl();
 
 		Scanner scan = new Scanner(System.in);
 
@@ -33,17 +36,17 @@ public class BankMain {
 
 			int option = scan.nextInt();
 			scan.nextLine();
-			
+
 			List<Integer> mainListOptions = new ArrayList<>();
 			mainListOptions.add(1);
 			mainListOptions.add(2);
 			mainListOptions.add(3);
-			
+
 			// make sure valid option is selected
-			if(!mainListOptions.contains(option)) {
+			if (!mainListOptions.contains(option)) {
 				System.out.println("Please enter a valid menu option!");
 			}
-			
+
 			System.out.println("*************************************");
 
 			switch (option) {
@@ -65,7 +68,7 @@ public class BankMain {
 
 				}
 
-				 while(fetchedEmployee == null) {
+				while (fetchedEmployee == null) {
 					System.out.println("Enter Employee Password: ");
 					String employeePassword = scan.next();
 
@@ -75,12 +78,12 @@ public class BankMain {
 						System.out.println("Please enter the proper password...");
 					} else {
 						System.out.println("Login Successful!");
-						
+
 					}
-					
+
 				}
 
-				 System.out.println("*************************************");
+				System.out.println("*************************************");
 				System.out.println("Employee ID: " + fetchedEmployee.getEmployeeId());
 				System.out.println(
 						"Employee Name: " + fetchedEmployee.getFirstName() + " " + fetchedEmployee.getLastName());
@@ -97,17 +100,16 @@ public class BankMain {
 					System.out.println("2. Create a Customer");
 					System.out.println("3. Logout and Return to Main Menu");
 					System.out.println("*************************************");
-					
+
 					List<Integer> employeeListOptions = new ArrayList<>();
 					employeeListOptions.add(1);
 					employeeListOptions.add(2);
 					employeeListOptions.add(3);
-					
 
 					int option2 = scan.nextInt();
-					
+
 					// make sure valid option is selected
-					if(!employeeListOptions.contains(option2)) {
+					if (!employeeListOptions.contains(option2)) {
 						System.out.println("Please enter a valid menu option!");
 					}
 
@@ -132,13 +134,13 @@ public class BankMain {
 						}
 						System.out.println("*************************************************************************");
 					}
-					
-					if(option2 == 2) {
+
+					if (option2 == 2) {
 						System.out.println("********************************************");
 						scan.nextLine();
-						
+
 						CustomerPojo newCustomer = new CustomerPojo();
-						
+
 						System.out.println("Enter a Password: ");
 						newCustomer.setPassword(scan.nextLine());
 						System.out.println("Enter First Name: ");
@@ -153,18 +155,18 @@ public class BankMain {
 						System.out.println("Enter Balance ($): ");
 						newCustomer.setBalance(scan.nextLong());
 						scan.nextLine();
-						
-						
+
 						CustomerPojo addedCustomer;
-						
+
 						addedCustomer = employeeService.createNewCustomer(newCustomer, fetchedEmployee.getEmployeeId());
-						
-						System.out.println("New Customer Name is: " + addedCustomer.getFirstName() + " " + addedCustomer.getLastName());
+
+						System.out.println("New Customer Name is: " + addedCustomer.getFirstName() + " "
+								+ addedCustomer.getLastName());
 						System.out.println("New Customer Phone Number is: " + addedCustomer.getPhoneNumber());
 						System.out.println("New Customer Email is: " + addedCustomer.getEmail());
 						System.out.println("New Customer Balance is: " + addedCustomer.getBalance());
 						System.out.println("Your Employee ID is: " + fetchedEmployee.getEmployeeId());
-						
+
 						System.out.println();
 					}
 
@@ -176,6 +178,47 @@ public class BankMain {
 
 				break;
 
+			case 2:
+
+				CustomerPojo foundCustomer = null;
+				CustomerPojo fetchedCustomer = null;
+
+				while (foundCustomer == null) {
+					System.out.println("Enter Customer Email: ");
+					String customerEmail = scan.next();
+
+					foundCustomer = customerService.fetchOneCustomer(customerEmail);
+
+					if (foundCustomer == null) {
+						System.out.println("Please enter the proper email...");
+					}
+
+				}
+
+				while (fetchedCustomer == null) {
+					System.out.println("Enter Customer Password: ");
+					String customerPassword = scan.next();
+
+					fetchedCustomer = customerService.loginCustomer(foundCustomer.getEmail(), customerPassword);
+
+					if (fetchedCustomer == null) {
+						System.out.println("Please enter the proper password...");
+					} else {
+						System.out.println("Login Successful!");
+
+					}
+
+				}
+
+				System.out.println("*************************************");
+				System.out.println("Customer ID: " + fetchedCustomer.getCustomerId());
+				System.out.println(
+						"Customer Name: " + fetchedCustomer.getFirstName() + " " + fetchedCustomer.getLastName());
+				System.out.println("Customer Email: " + fetchedCustomer.getEmail());
+				System.out.println("Customer Phone Number: " + fetchedCustomer.getPhoneNumber());
+				System.out.println("Customer Balance: " + fetchedCustomer.getBalance());
+
+				break;
 			case 3:
 				System.out.println("***********************************************");
 				System.out.println("Exiting System...");
