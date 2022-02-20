@@ -23,6 +23,14 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return customerDao.fetchOneCustomer(email);
 	}
+	
+	
+	@Override
+	public CustomerPojo fetchOneCustomer(int customerId) {
+		
+		return customerDao.fetchOneCustomer(customerId);
+		
+	}
 
 	@Override
 	public CustomerPojo loginCustomer(String email, String password) {
@@ -32,15 +40,17 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public CustomerPojo createNewTransaction(int fromAccountId, int toAccountId) {
-		// TODO Auto-generated method stub
-		return null;
+	public TransactionPojo createNewTransaction(int fromAccountId, int toAccountId, int amountToTransfer) {
+		
+		return customerDao.createNewTransaction(fromAccountId, toAccountId, amountToTransfer);
+		
 	}
 
 	@Override
 	public List<TransactionPojo> fetchAllTransactions() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return customerDao.fetchAllTransactions();
 	}
+
 
 }
