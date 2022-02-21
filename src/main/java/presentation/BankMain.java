@@ -227,13 +227,15 @@ public class BankMain {
 					System.out.println("*************************************");
 					System.out.println("1. List all Transactions");
 					System.out.println("2. Create a Transfer");
-					System.out.println("3. Logout and Return to Main Menu");
+					System.out.println("3. View Acount Details");
+					System.out.println("4. Logout and Return to Main Menu");
 					System.out.println("*************************************");
 
 					List<Integer> customerListOptions = new ArrayList<>();
 					customerListOptions.add(1);
 					customerListOptions.add(2);
 					customerListOptions.add(3);
+					customerListOptions.add(4);
 
 					int option2 = scan.nextInt();
 
@@ -289,7 +291,24 @@ public class BankMain {
 						System.out.println();
 					}
 					
-					if (option2 == 3) {
+					if(option2 == 3) {
+						
+						CustomerPojo customerInfo;
+
+						customerInfo = customerService.fetchOneCustomer(fetchedCustomer.getCustomerId());
+
+						System.out.println("*************************************");
+						System.out.println("Your Account Details: ");
+						System.out.println("Customer ID: " + customerInfo.getCustomerId());
+						System.out.println(
+								"Customer Name: " + customerInfo.getFirstName() + " " + customerInfo.getLastName());
+						System.out.println("Customer Email: " + customerInfo.getEmail());
+						System.out.println("Customer Phone Number: " + customerInfo.getPhoneNumber());
+						System.out.println("Customer Balance: " + customerInfo.getBalance());
+						
+					}
+					
+					if (option2 == 4) {
 						customerMenu = false;
 					}
 				
