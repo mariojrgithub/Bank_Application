@@ -167,8 +167,25 @@ public class BankMain {
 						System.out.println("Enter Phone Number: ");
 						newCustomer.setPhoneNumber(scan.nextLong());
 						scan.nextLine();
-						System.out.println("Enter email: ");
-						newCustomer.setEmail(scan.nextLine());
+						
+						boolean check = true;
+						
+						while(check) {
+							System.out.println("Enter email: ");
+							String customerEmail = scan.nextLine();
+							
+							if(!customerEmail.contains("@")) {
+								System.out.println("Please enter a proper email...");
+							} else {
+							
+								newCustomer.setEmail(customerEmail);
+								check = false;
+								
+							}
+							
+						}
+						
+						
 						System.out.println("Enter Balance ($): ");
 						newCustomer.setBalance(scan.nextLong());
 						scan.nextLine();
