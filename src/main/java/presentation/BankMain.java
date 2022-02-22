@@ -243,7 +243,7 @@ public class BankMain {
 					if (!customerListOptions.contains(option2)) {
 						System.out.println("Please enter a valid menu option!");
 					}
-					
+
 					if (option2 == 1) {
 
 						List<TransactionPojo> allTransactions;
@@ -253,46 +253,80 @@ public class BankMain {
 						// iterate through all customers
 						Iterator<TransactionPojo> itr = allTransactions.iterator();
 
-						System.out.println("*************************************************************************************************************");
+						System.out.println(
+								"*************************************************************************************************************");
 						System.out.println("Transaction List:");
 						System.out.println("ID\tFROM ACCOUNT ID\t\tTO ACCOUNT ID\tAMOUNT TRANSFERRED\t\tCREATED ON");
 
 						while (itr.hasNext()) {
 							TransactionPojo transaction = itr.next();
-							System.out.println(transaction.getTransactionId() + "\t\t" + transaction.getFromAccountId() + "\t\t\t" + transaction.getToAccountId() + "\t\t" + transaction.getAmountToTransfer()
-									+ "\t\t\t" + transaction.getCreated_on());
+							System.out.println(transaction.getTransactionId() + "\t\t" + transaction.getFromAccountId()
+									+ "\t\t\t" + transaction.getToAccountId() + "\t\t"
+									+ transaction.getAmountToTransfer() + "\t\t\t" + transaction.getCreated_on());
 						}
-						System.out.println("*************************************************************************************************************");
+						System.out.println(
+								"*************************************************************************************************************");
 					}
-					
+
 					if (option2 == 2) {
-						
-						System.out.println("********************************************");
-						scan.nextLine();
 
 						TransactionPojo newTransaction = new TransactionPojo();
 						TransactionPojo addedTransaction = new TransactionPojo();
-
-						System.out.println("Enter the Customer ID you want to send to: ");
-						newTransaction.setToAccountId(scan.nextInt());
-						System.out.println("Enter the amount you would like to transfer: ");
-						newTransaction.setAmountToTransfer(scan.nextInt());
+						char tranOption = 'y';
 						
-						newTransaction.setFromAccountId(fetchedCustomer.getCustomerId());
+						addedTransaction = null;
 						
-						scan.nextLine();
+						
 
-						addedTransaction = customerService.createNewTransaction(newTransaction.getFromAccountId(), newTransaction.getToAccountId(), newTransaction.getAmountToTransfer());
+						while (addedTransaction == null && tranOption == 'y') {
+							System.out.println("********************************************");
+							scan.nextLine();
 
-						System.out.println("New Transaction ID is: " + addedTransaction.getTransactionId());
-						System.out.println("Your New Balance is: " + (fetchedCustomer.getBalance() - newTransaction.getAmountToTransfer()));
-						System.out.println("The transaction was created on: " + addedTransaction.getCreated_on());
+							System.out.println("Enter the Customer ID you want to send to: ");
 
-						System.out.println();
+							int toCustomerId = scan.nextInt();
+
+							newTransaction.setToAccountId(toCustomerId);
+
+							System.out.println("Enter the amount you would like to transfer: ");
+
+							newTransaction.setAmountToTransfer(scan.nextInt());
+
+							long newBalance = fetchedCustomer.getBalance() - newTransaction.getAmountToTransfer();
+
+							newTransaction.setFromAccountId(fetchedCustomer.getCustomerId());
+
+							if (customerService.fetchOneCustomer(toCustomerId) == null) {
+								System.out.println("Customer ID does not exist! Please try again...");
+								System.out.println("Would you like to try again? (y/n)");
+								tranOption = scan.next().charAt(0);
+							} else if (newBalance < 0) {
+								System.out.println("There are not enough funds in your account! Please try again...");
+								System.out.println("Would you like to try again? (y/n)");
+								tranOption = scan.next().charAt(0);
+								
+							} else {
+
+								scan.nextLine();
+
+								addedTransaction = customerService.createNewTransaction(
+										newTransaction.getFromAccountId(), newTransaction.getToAccountId(),
+										newTransaction.getAmountToTransfer());
+
+								System.out.println("Tansaction Successful!");
+
+								System.out.println("New Transaction ID is: " + addedTransaction.getTransactionId());
+								System.out.println("Your New Balance is: " + newBalance);
+								System.out
+										.println("The transaction was created on: " + addedTransaction.getCreated_on());
+
+								System.out.println();
+							}
+						}
 					}
-					
-					if(option2 == 3) {
-						
+
+					if (option2 == 3) {
+
 						CustomerPojo customerInfo;
 
 						customerInfo = customerService.fetchOneCustomer(fetchedCustomer.getCustomerId());
@@ -305,17 +339,17 @@ public class BankMain {
 						System.out.println("Customer Email: " + customerInfo.getEmail());
 						System.out.println("Customer Phone Number: " + customerInfo.getPhoneNumber());
 						System.out.println("Customer Balance: " + customerInfo.getBalance());
-						
+
 					}
-					
+
 					if (option2 == 4) {
 						customerMenu = false;
 					}
-				
+
 				}
-				
+
 				break;
-				
+
 			case 3:
 				System.out.println("***********************************************");
 				System.out.println("Exiting System...");
