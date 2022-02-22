@@ -7,15 +7,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.TransactionPojo;
 
 public class CustomerDaoImpl implements CustomerDao {
+	
+	public static final Logger LOG = LogManager.getLogger(CustomerDaoImpl.class);
 
 	@Override
 	public CustomerPojo fetchOneCustomer(String email) throws SystemException {
-
+		
+		LOG.info("Entered fetchOneCustomer() in DAO");
 		CustomerPojo customerPojo = null;
 
 		Connection conn = DBUtil.obtainConnection();
@@ -36,6 +42,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchOneCustomer() in DAO");
 		return customerPojo;
 
 	}
@@ -43,6 +50,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public CustomerPojo loginCustomer(String email, String password) throws SystemException {
 
+		LOG.info("Entered loginCustomer() in DAO");
+		
 		CustomerPojo customerPojo = null;
 		CustomerPojo customerPojo2 = null;
 
@@ -67,6 +76,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited loginCustomer() in DAO");
 		return customerPojo2;
 
 	}
@@ -80,6 +90,8 @@ public class CustomerDaoImpl implements CustomerDao {
 //		// get to account info
 ////		CustomerPojo toCustomer = null;
 //		CustomerPojo toCustomer2 = null;
+		
+		LOG.info("Entered createNewTransaction() in DAO");
 
 		TransactionPojo transactionPojo = null;
 
@@ -141,11 +153,14 @@ public class CustomerDaoImpl implements CustomerDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited createNewTransaction() in DAO");
 		return transactionPojo;
 	}
 
 	@Override
 	public List<TransactionPojo> fetchAllTransactions() throws SystemException {
+		
+		LOG.info("Entered fetchAllTransactions() in DAO");
 
 		// collection of transactions
 		List<TransactionPojo> allTransactions = new ArrayList<>();
@@ -173,12 +188,15 @@ public class CustomerDaoImpl implements CustomerDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchAllTransactions() in DAO");
 		return allTransactions;
 
 	}
 
 	@Override
 	public CustomerPojo fetchOneCustomer(int customerId) throws SystemException {
+		
+		LOG.info("Entered fetchOneCustomer() in DAO");
 
 		CustomerPojo customerPojo = null;
 
@@ -200,6 +218,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchOneCustomer() in DAO");
 		return customerPojo;
 	}
 

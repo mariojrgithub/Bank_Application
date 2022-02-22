@@ -7,15 +7,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
 import pojo.TransactionPojo;
 
 public class EmployeeDaoImpl implements EmployeeDao {
+	
+	public static final Logger LOG = LogManager.getLogger(EmployeeDaoImpl.class);
 
 	@Override
 	public List<EmployeePojo> fetchAllEmployees() throws SystemException {
+		
+		LOG.info("Entered fetchAllEmployees() in DAO");
+		
 		// collection of employees
 		List<EmployeePojo> allEmployees = new ArrayList<>();
 		;
@@ -44,11 +52,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchAllEmployees() in DAO");
 		return allEmployees;
 	}
 
 	@Override
 	public EmployeePojo loginEmployee(String email, String password) throws SystemException {
+		
+		LOG.info("Entered loginEmployee() in DAO");
 
 		EmployeePojo employeePojo = null;
 		EmployeePojo employeePojo2 = null;
@@ -74,12 +85,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited loginEmployee() in DAO");
 		return employeePojo2;
 	}
 
 	@Override
 	public CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId) throws SystemException {
 
+		LOG.info("Entered createNewCustomer() in DAO");
+		
 		Connection conn = DBUtil.obtainConnection();
 
 		try {
@@ -96,11 +110,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited createNewCustomer() in DAO");
 		return customerPojo;
 	}
 
 	@Override
 	public List<CustomerPojo> fetchAllCustomers() throws SystemException {
+		
+		LOG.info("Entered fetchAllCustomers() in DAO");
 
 		// create ArrayList of all customers from DB
 		List<CustomerPojo> allCustomers = new ArrayList<>();
@@ -127,11 +144,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchAllCustomers() in DAO");
 		return allCustomers;
 	}
 
 	@Override
 	public EmployeePojo fetchOneEmployee(String email) throws SystemException {
+		
+		LOG.info("Entered fetchOneEmployee() in DAO");
 
 		EmployeePojo employeePojo = null;
 
@@ -153,11 +173,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchOneEmployee() in DAO");
 		return employeePojo;
 	}
 
 	@Override
 	public List<TransactionPojo> fetchAllTransactions() throws SystemException {
+		
+		LOG.info("Entered fetchAllTransactions() in DAO");
 
 		// collection of transactions
 		List<TransactionPojo> allTransactions = new ArrayList<>();
@@ -185,6 +208,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			throw new SystemException();
 		}
 
+		LOG.info("Exited fetchAllTransactions() in DAO");
 		return allTransactions;
 
 	}

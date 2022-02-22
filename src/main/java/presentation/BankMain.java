@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
@@ -15,6 +18,8 @@ import service.EmployeeService;
 import service.EmployeeServiceImpl;
 
 public class BankMain {
+	
+	public static final Logger LOG = LogManager.getLogger(BankMain.class);
 
 	public static void main(String[] args) {
 
@@ -65,6 +70,7 @@ public class BankMain {
 					try {
 						foundEmployee = employeeService.fetchOneEmployee(employeeEmail);
 					} catch (SystemException e) {
+						LOG.error(e);
 						System.out.println(e.getMessage());
 					}
 
@@ -81,6 +87,7 @@ public class BankMain {
 					try {
 						fetchedEmployee = employeeService.loginEmployee(foundEmployee.getEmail(), employeePassword);
 					} catch (SystemException e) {
+						LOG.error(e);
 						System.out.println(e.getMessage());
 					}
 
@@ -133,6 +140,7 @@ public class BankMain {
 						try {
 							allCustomers = employeeService.fetchAllCustomers();
 						} catch (SystemException e) {
+							LOG.error(e);
 							System.out.println(e.getMessage());
 						}
 
@@ -196,6 +204,7 @@ public class BankMain {
 						try {
 							addedCustomer = employeeService.createNewCustomer(newCustomer, fetchedEmployee.getEmployeeId());
 						} catch (SystemException e) {
+							LOG.error(e);
 							System.out.println(e.getMessage());
 						}
 
@@ -217,6 +226,7 @@ public class BankMain {
 						try {
 							allTransactions = customerService.fetchAllTransactions();
 						} catch (SystemException e) {
+							LOG.error(e);
 							System.out.println(e.getMessage());
 						}
 
@@ -259,6 +269,7 @@ public class BankMain {
 					try {
 						foundCustomer = customerService.fetchOneCustomer(customerEmail);
 					} catch (SystemException e) {
+						LOG.error(e);
 						System.out.println(e.getMessage());
 					}
 
@@ -275,6 +286,7 @@ public class BankMain {
 					try {
 						fetchedCustomer = customerService.loginCustomer(foundCustomer.getEmail(), customerPassword);
 					} catch (SystemException e) {
+						LOG.error(e);
 						System.out.println(e.getMessage());
 					}
 
@@ -328,6 +340,7 @@ public class BankMain {
 						try {
 							allTransactions = customerService.fetchAllTransactions();
 						} catch (SystemException e) {
+							LOG.error(e);
 							System.out.println(e.getMessage());
 						}
 
@@ -405,6 +418,7 @@ public class BankMain {
 									System.out.println();
 								}
 							} catch (SystemException e) {
+								LOG.error(e);
 								System.out.println(e.getMessage());
 							}
 						}
@@ -418,6 +432,7 @@ public class BankMain {
 						try {
 							customerInfo = customerService.fetchOneCustomer(fetchedCustomer.getCustomerId());
 						} catch (SystemException e) {
+							LOG.error(e);
 							System.out.println(e.getMessage());
 						}
 
