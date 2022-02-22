@@ -1,12 +1,11 @@
 # Revature Project 0
-By: Mario Sanchez, Jr.
-Date: 2/23/2022
+By: Mario Sanchez, Jr.		Date: 2/23/2022
 
-# Console Based Bank Application
+# Console-Based Bank Application
 
 ### Description:
 
-A simple console based application consisting of:
+A simple console-based application consisting of:
 1. a main menu
 2. an employee menu
 3. a customer menu
@@ -41,6 +40,10 @@ A simple console based application consisting of:
 ### Assumptions:
 
 ### Improvements Going Forward:
+1. Create a properties file so that the database's login information is not visible in the Java code.
+2. Normalize the tables better to fit a more complex bank application.
+3. Implement more tests using Mockito and JUnit5.
+4. Add a few more user input checks to ensure they cannot enter incorrect information.
 
 
 
