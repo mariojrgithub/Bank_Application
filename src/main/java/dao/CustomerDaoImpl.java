@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pojo.CustomerPojo;
-import pojo.EmployeePojo;
 import pojo.TransactionPojo;
 
 public class CustomerDaoImpl implements CustomerDao {
@@ -76,12 +75,12 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public TransactionPojo createNewTransaction(int fromAccountId, int toAccountId, int amountToTransfer) {
 
-		// get from account info
-//		CustomerPojo fromCustomer = null;
-		CustomerPojo fromCustomer2 = null;
-		// get to account info
-//		CustomerPojo toCustomer = null;
-		CustomerPojo toCustomer2 = null;
+//		// get from account info
+////		CustomerPojo fromCustomer = null;
+//		CustomerPojo fromCustomer2 = null;
+//		// get to account info
+////		CustomerPojo toCustomer = null;
+//		CustomerPojo toCustomer2 = null;
 
 		TransactionPojo transactionPojo = null;
 
@@ -152,7 +151,6 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		// collection of transactions
 		List<TransactionPojo> allTransactions = new ArrayList<>();
-		;
 
 		Connection conn = DBUtil.obtainConnection();
 

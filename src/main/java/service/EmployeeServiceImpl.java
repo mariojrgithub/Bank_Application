@@ -6,6 +6,7 @@ import dao.EmployeeDao;
 import dao.EmployeeDaoImpl;
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
+import pojo.TransactionPojo;
 
 public class EmployeeServiceImpl implements EmployeeService {
 	
@@ -48,5 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<CustomerPojo> fetchAllCustomers() {
 		return employeeDao.fetchAllCustomers();
 	}
+
+	@Override
+	public List<TransactionPojo> fetchAllTransactions() {
+		return employeeDao.fetchAllTransactions();
+	}
+
 
 }

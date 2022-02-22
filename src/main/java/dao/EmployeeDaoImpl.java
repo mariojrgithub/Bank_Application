@@ -9,6 +9,7 @@ import java.util.List;
 
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
+import pojo.TransactionPojo;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
@@ -118,8 +119,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			while (rs.next()) {
 				// copy each customer into a CustomerPojo
 				CustomerPojo customerPojo = new CustomerPojo(rs.getInt(1), rs.getString(2), rs.getString(3),
-						rs.getString(4), rs.getLong(5), rs.getString(6), rs.getLong(7), rs.getInt(8),
-						rs.getString(9));
+						rs.getString(4), rs.getLong(5), rs.getString(6), rs.getLong(7), rs.getInt(8), rs.getString(9));
 				// add customer to ArrayList
 				allCustomers.add(customerPojo);
 			}
@@ -157,6 +157,40 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 
 		return employeePojo;
+	}
+
+	@Override
+	public List<TransactionPojo> fetchAllTransactions() {
+
+		// collection of transactions
+		List<TransactionPojo> allTransactions = new ArrayList<>();
+
+		Connection conn = DBUtil.obtainConnection();
+
+		try {
+			Statement stmt = conn.createStatement();
+
+			String query = "SELECT * FROM transaction_history";
+
+			ResultSet rs = stmt.executeQuery(query);
+
+			// iterate through result set
+			while (rs.next()) {
+				// copy each record into a EmployeePojo object
+				TransactionPojo transactionPojo = new TransactionPojo(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+						rs.getInt(4), rs.getString(5));
+
+				// add EmployeePojo to ArrayList
+				allTransactions.add(transactionPojo);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return allTransactions;
+
 	}
 
 }

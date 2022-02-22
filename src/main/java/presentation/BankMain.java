@@ -99,13 +99,15 @@ public class BankMain {
 					System.out.println("*************************************");
 					System.out.println("1. List all Customers");
 					System.out.println("2. Create a Customer");
-					System.out.println("3. Logout and Return to Main Menu");
+					System.out.println("3. View all Transactions");
+					System.out.println("4. Logout and Return to Main Menu");
 					System.out.println("*************************************");
 
 					List<Integer> employeeListOptions = new ArrayList<>();
 					employeeListOptions.add(1);
 					employeeListOptions.add(2);
 					employeeListOptions.add(3);
+					employeeListOptions.add(4);
 
 					int option2 = scan.nextInt();
 
@@ -123,17 +125,17 @@ public class BankMain {
 						// iterate through all customers
 						Iterator<CustomerPojo> itr = allCustomers.iterator();
 
-						System.out.println("*************************************************************************");
+						System.out.println("***********************************************************************************");
 						System.out.println("Customer List:");
-						System.out.println("ID\tNAME\t\tPHONE\t\t\tEMAIL\t\tBALANCE");
+						System.out.println("ID\tNAME\t\tPHONE\t\t\tBALANCE\t\tEMAIL");
 
 						while (itr.hasNext()) {
 							CustomerPojo customer = itr.next();
 							System.out.println(customer.getCustomerId() + "\t" + customer.getFirstName() + " "
-									+ customer.getLastName() + "\t" + customer.getPhoneNumber() + "\t"
-									+ customer.getEmail() + "\t\t" + customer.getBalance());
+									+ customer.getLastName() + "\t" + customer.getPhoneNumber() + "\t\t"
+									+ "$" + customer.getBalance() + "\t\t" + customer.getEmail() );
 						}
-						System.out.println("*************************************************************************");
+						System.out.println("**********************************************************************************");
 					}
 
 					if (option2 == 2) {
@@ -172,6 +174,31 @@ public class BankMain {
 					}
 
 					if (option2 == 3) {
+						
+						List<TransactionPojo> allTransactions;
+
+						allTransactions = customerService.fetchAllTransactions();
+
+						// iterate through all customers
+						Iterator<TransactionPojo> itr = allTransactions.iterator();
+
+						System.out.println(
+								"*************************************************************************************************************");
+						System.out.println("Transaction List:");
+						System.out.println("ID\tFROM ACCOUNT ID\t\tTO ACCOUNT ID\tAMOUNT TRANSFERRED\t\tCREATED ON");
+
+						while (itr.hasNext()) {
+							TransactionPojo transaction = itr.next();
+							System.out.println(transaction.getTransactionId() + "\t\t" + transaction.getFromAccountId()
+									+ "\t\t\t" + transaction.getToAccountId() + "\t\t"
+									+ transaction.getAmountToTransfer() + "\t\t\t" + transaction.getCreated_on());
+						}
+						System.out.println(
+								"*************************************************************************************************************");
+						
+					}
+					
+					if(option2 == 4) {
 						employeeMenu = false;
 					}
 
@@ -250,7 +277,7 @@ public class BankMain {
 
 						allTransactions = customerService.fetchAllTransactions();
 
-						// iterate through all customers
+						// iterate through all transactions
 						Iterator<TransactionPojo> itr = allTransactions.iterator();
 
 						System.out.println(
@@ -351,6 +378,7 @@ public class BankMain {
 				break;
 
 			case 3:
+				
 				System.out.println("***********************************************");
 				System.out.println("Exiting System...");
 				System.out.println("Thank you for visiting the Bank!");
