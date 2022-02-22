@@ -1,5 +1,6 @@
 # Revature Project 0
-By: Mario Sanchez, Jr.		Date: 2/23/2022
+By: Mario Sanchez, Jr.<br />		
+Date: 2/23/2022
 
 # Console-Based Bank Application
 
