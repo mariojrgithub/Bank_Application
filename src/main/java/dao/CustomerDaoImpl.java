@@ -7,13 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.TransactionPojo;
 
 public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
-	public CustomerPojo fetchOneCustomer(String email) {
+	public CustomerPojo fetchOneCustomer(String email) throws SystemException {
 
 		CustomerPojo customerPojo = null;
 
@@ -32,8 +33,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return customerPojo;
@@ -41,7 +41,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public CustomerPojo loginCustomer(String email, String password) {
+	public CustomerPojo loginCustomer(String email, String password) throws SystemException {
 
 		CustomerPojo customerPojo = null;
 		CustomerPojo customerPojo2 = null;
@@ -63,9 +63,8 @@ public class CustomerDaoImpl implements CustomerDao {
 						rs.getLong(5), rs.getString(6), rs.getLong(7), rs.getInt(8), rs.getString(9));
 			}
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException | SystemException e) {
+			throw new SystemException();
 		}
 
 		return customerPojo2;
@@ -73,7 +72,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public TransactionPojo createNewTransaction(int fromAccountId, int toAccountId, int amountToTransfer) {
+	public TransactionPojo createNewTransaction(int fromAccountId, int toAccountId, int amountToTransfer) throws SystemException {
 
 //		// get from account info
 ////		CustomerPojo fromCustomer = null;
@@ -139,15 +138,14 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return transactionPojo;
 	}
 
 	@Override
-	public List<TransactionPojo> fetchAllTransactions() {
+	public List<TransactionPojo> fetchAllTransactions() throws SystemException {
 
 		// collection of transactions
 		List<TransactionPojo> allTransactions = new ArrayList<>();
@@ -172,8 +170,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return allTransactions;
@@ -181,7 +178,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public CustomerPojo fetchOneCustomer(int customerId) {
+	public CustomerPojo fetchOneCustomer(int customerId) throws SystemException {
 
 		CustomerPojo customerPojo = null;
 
@@ -200,8 +197,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return customerPojo;

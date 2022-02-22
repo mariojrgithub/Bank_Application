@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
 import pojo.TransactionPojo;
@@ -9,21 +10,21 @@ import pojo.TransactionPojo;
 public interface EmployeeDao {
 
 	// fetch all employees
-	List<EmployeePojo> fetchAllEmployees();
+	List<EmployeePojo> fetchAllEmployees() throws SystemException;
 
 	// get one employee
-	EmployeePojo fetchOneEmployee(String email);
+	EmployeePojo fetchOneEmployee(String email) throws SystemException;
 
 	// login
-	EmployeePojo loginEmployee(String email, String password);
+	EmployeePojo loginEmployee(String email, String password) throws SystemException;
 
 	// register new customer
-	CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId);
+	CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId) throws SystemException;
 
 	// list all customers
-	List<CustomerPojo> fetchAllCustomers();
+	List<CustomerPojo> fetchAllCustomers() throws SystemException;
 	
 	// view all transactions
-	List<TransactionPojo> fetchAllTransactions();
+	List<TransactionPojo> fetchAllTransactions() throws SystemException;
 
 }

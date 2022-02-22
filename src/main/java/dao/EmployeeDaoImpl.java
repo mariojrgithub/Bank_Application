@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
 import pojo.TransactionPojo;
@@ -14,15 +15,16 @@ import pojo.TransactionPojo;
 public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
-	public List<EmployeePojo> fetchAllEmployees() {
+	public List<EmployeePojo> fetchAllEmployees() throws SystemException {
 		// collection of employees
 		List<EmployeePojo> allEmployees = new ArrayList<>();
 		;
 
 		Connection conn = DBUtil.obtainConnection();
 
+		Statement stmt;
 		try {
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 
 			String query = "SELECT * FROM employees";
 
@@ -39,15 +41,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return allEmployees;
 	}
 
 	@Override
-	public EmployeePojo loginEmployee(String email, String password) {
+	public EmployeePojo loginEmployee(String email, String password) throws SystemException {
 
 		EmployeePojo employeePojo = null;
 		EmployeePojo employeePojo2 = null;
@@ -70,15 +71,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return employeePojo2;
 	}
 
 	@Override
-	public CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId) {
+	public CustomerPojo createNewCustomer(CustomerPojo customerPojo, int employeeId) throws SystemException {
 
 		Connection conn = DBUtil.obtainConnection();
 
@@ -93,15 +93,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			int rows = stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return customerPojo;
 	}
 
 	@Override
-	public List<CustomerPojo> fetchAllCustomers() {
+	public List<CustomerPojo> fetchAllCustomers() throws SystemException {
 
 		// create ArrayList of all customers from DB
 		List<CustomerPojo> allCustomers = new ArrayList<>();
@@ -125,15 +124,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return allCustomers;
 	}
 
 	@Override
-	public EmployeePojo fetchOneEmployee(String email) {
+	public EmployeePojo fetchOneEmployee(String email) throws SystemException {
 
 		EmployeePojo employeePojo = null;
 
@@ -152,15 +150,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return employeePojo;
 	}
 
 	@Override
-	public List<TransactionPojo> fetchAllTransactions() {
+	public List<TransactionPojo> fetchAllTransactions() throws SystemException {
 
 		// collection of transactions
 		List<TransactionPojo> allTransactions = new ArrayList<>();
@@ -185,8 +182,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SystemException();
 		}
 
 		return allTransactions;

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.SystemException;
 import pojo.CustomerPojo;
 import pojo.EmployeePojo;
 import pojo.TransactionPojo;
@@ -61,7 +62,11 @@ public class BankMain {
 					System.out.println("Enter Employee Email: ");
 					String employeeEmail = scan.next();
 
-					foundEmployee = employeeService.fetchOneEmployee(employeeEmail);
+					try {
+						foundEmployee = employeeService.fetchOneEmployee(employeeEmail);
+					} catch (SystemException e) {
+						System.out.println(e.getMessage());
+					}
 
 					if (foundEmployee == null) {
 						System.out.println("Please enter the proper email...");
@@ -73,7 +78,11 @@ public class BankMain {
 					System.out.println("Enter Employee Password: ");
 					String employeePassword = scan.next();
 
-					fetchedEmployee = employeeService.loginEmployee(foundEmployee.getEmail(), employeePassword);
+					try {
+						fetchedEmployee = employeeService.loginEmployee(foundEmployee.getEmail(), employeePassword);
+					} catch (SystemException e) {
+						System.out.println(e.getMessage());
+					}
 
 					if (fetchedEmployee == null) {
 						System.out.println("Please enter the proper password...");
@@ -119,8 +128,13 @@ public class BankMain {
 					if (option2 == 1) {
 
 						List<CustomerPojo> allCustomers;
+						allCustomers = null;
 
-						allCustomers = employeeService.fetchAllCustomers();
+						try {
+							allCustomers = employeeService.fetchAllCustomers();
+						} catch (SystemException e) {
+							System.out.println(e.getMessage());
+						}
 
 						// iterate through all customers
 						Iterator<CustomerPojo> itr = allCustomers.iterator();
@@ -160,14 +174,19 @@ public class BankMain {
 						scan.nextLine();
 
 						CustomerPojo addedCustomer;
+						addedCustomer = null;
 
-						addedCustomer = employeeService.createNewCustomer(newCustomer, fetchedEmployee.getEmployeeId());
+						try {
+							addedCustomer = employeeService.createNewCustomer(newCustomer, fetchedEmployee.getEmployeeId());
+						} catch (SystemException e) {
+							System.out.println(e.getMessage());
+						}
 
 						System.out.println("New Customer Name is: " + addedCustomer.getFirstName() + " "
 								+ addedCustomer.getLastName());
 						System.out.println("New Customer Phone Number is: " + addedCustomer.getPhoneNumber());
 						System.out.println("New Customer Email is: " + addedCustomer.getEmail());
-						System.out.println("New Customer Balance is: " + addedCustomer.getBalance());
+						System.out.println("New Customer Balance is: $" + addedCustomer.getBalance());
 						System.out.println("Your Employee ID is: " + fetchedEmployee.getEmployeeId());
 
 						System.out.println();
@@ -176,8 +195,13 @@ public class BankMain {
 					if (option2 == 3) {
 						
 						List<TransactionPojo> allTransactions;
+						allTransactions = null;
 
-						allTransactions = customerService.fetchAllTransactions();
+						try {
+							allTransactions = customerService.fetchAllTransactions();
+						} catch (SystemException e) {
+							System.out.println(e.getMessage());
+						}
 
 						// iterate through all customers
 						Iterator<TransactionPojo> itr = allTransactions.iterator();
@@ -215,7 +239,11 @@ public class BankMain {
 					System.out.println("Enter Customer Email: ");
 					String customerEmail = scan.next();
 
-					foundCustomer = customerService.fetchOneCustomer(customerEmail);
+					try {
+						foundCustomer = customerService.fetchOneCustomer(customerEmail);
+					} catch (SystemException e) {
+						System.out.println(e.getMessage());
+					}
 
 					if (foundCustomer == null) {
 						System.out.println("Please enter the proper email...");
@@ -227,7 +255,11 @@ public class BankMain {
 					System.out.println("Enter Customer Password: ");
 					String customerPassword = scan.next();
 
-					fetchedCustomer = customerService.loginCustomer(foundCustomer.getEmail(), customerPassword);
+					try {
+						fetchedCustomer = customerService.loginCustomer(foundCustomer.getEmail(), customerPassword);
+					} catch (SystemException e) {
+						System.out.println(e.getMessage());
+					}
 
 					if (fetchedCustomer == null) {
 						System.out.println("Please enter the proper password...");
@@ -274,8 +306,13 @@ public class BankMain {
 					if (option2 == 1) {
 
 						List<TransactionPojo> allTransactions;
+						allTransactions = null;
 
-						allTransactions = customerService.fetchAllTransactions();
+						try {
+							allTransactions = customerService.fetchAllTransactions();
+						} catch (SystemException e) {
+							System.out.println(e.getMessage());
+						}
 
 						// iterate through all transactions
 						Iterator<TransactionPojo> itr = allTransactions.iterator();
@@ -323,31 +360,35 @@ public class BankMain {
 
 							newTransaction.setFromAccountId(fetchedCustomer.getCustomerId());
 
-							if (customerService.fetchOneCustomer(toCustomerId) == null) {
-								System.out.println("Customer ID does not exist! Please try again...");
-								System.out.println("Would you like to try again? (y/n)");
-								tranOption = scan.next().charAt(0);
-							} else if (newBalance < 0) {
-								System.out.println("There are not enough funds in your account! Please try again...");
-								System.out.println("Would you like to try again? (y/n)");
-								tranOption = scan.next().charAt(0);
-								
-							} else {
+							try {
+								if (customerService.fetchOneCustomer(toCustomerId) == null) {
+									System.out.println("Customer ID does not exist! Please try again...");
+									System.out.println("Would you like to try again? (y/n)");
+									tranOption = scan.next().charAt(0);
+								} else if (newBalance < 0) {
+									System.out.println("There are not enough funds in your account! Please try again...");
+									System.out.println("Would you like to try again? (y/n)");
+									tranOption = scan.next().charAt(0);
+									
+								} else {
 
-								scan.nextLine();
+									scan.nextLine();
 
-								addedTransaction = customerService.createNewTransaction(
-										newTransaction.getFromAccountId(), newTransaction.getToAccountId(),
-										newTransaction.getAmountToTransfer());
+									addedTransaction = customerService.createNewTransaction(
+											newTransaction.getFromAccountId(), newTransaction.getToAccountId(),
+											newTransaction.getAmountToTransfer());
 
-								System.out.println("Tansaction Successful!");
+									System.out.println("Tansaction Successful!");
 
-								System.out.println("New Transaction ID is: " + addedTransaction.getTransactionId());
-								System.out.println("Your New Balance is: " + newBalance);
-								System.out
-										.println("The transaction was created on: " + addedTransaction.getCreated_on());
+									System.out.println("New Transaction ID is: " + addedTransaction.getTransactionId());
+									System.out.println("Your New Balance is: $" + newBalance);
+									System.out
+											.println("The transaction was created on: " + addedTransaction.getCreated_on());
 
-								System.out.println();
+									System.out.println();
+								}
+							} catch (SystemException e) {
+								System.out.println(e.getMessage());
 							}
 						}
 					}
@@ -355,8 +396,13 @@ public class BankMain {
 					if (option2 == 3) {
 
 						CustomerPojo customerInfo;
+						customerInfo = null;
 
-						customerInfo = customerService.fetchOneCustomer(fetchedCustomer.getCustomerId());
+						try {
+							customerInfo = customerService.fetchOneCustomer(fetchedCustomer.getCustomerId());
+						} catch (SystemException e) {
+							System.out.println(e.getMessage());
+						}
 
 						System.out.println("*************************************");
 						System.out.println("Your Account Details: ");
@@ -365,7 +411,7 @@ public class BankMain {
 								"Customer Name: " + customerInfo.getFirstName() + " " + customerInfo.getLastName());
 						System.out.println("Customer Email: " + customerInfo.getEmail());
 						System.out.println("Customer Phone Number: " + customerInfo.getPhoneNumber());
-						System.out.println("Customer Balance: " + customerInfo.getBalance());
+						System.out.println("Customer Balance: $" + customerInfo.getBalance());
 
 					}
 
