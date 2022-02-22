@@ -224,7 +224,7 @@ public class BankMain {
 						allTransactions = null;
 
 						try {
-							allTransactions = customerService.fetchAllTransactions();
+							allTransactions = employeeService.fetchAllTransactions();
 						} catch (SystemException e) {
 							LOG.error(e);
 							System.out.println(e.getMessage());
@@ -338,7 +338,7 @@ public class BankMain {
 						allTransactions = null;
 
 						try {
-							allTransactions = customerService.fetchAllTransactions();
+							allTransactions = customerService.fetchAllTransactions(fetchedCustomer.getCustomerId());
 						} catch (SystemException e) {
 							LOG.error(e);
 							System.out.println(e.getMessage());

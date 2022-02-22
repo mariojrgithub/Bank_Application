@@ -48,9 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<TransactionPojo> fetchAllTransactions() throws SystemException {
+	public List<TransactionPojo> fetchAllTransactions(int customerId) throws SystemException {
 		
-		return customerDao.fetchAllTransactions();
+		return customerDao.fetchAllTransactions(customerId);
 	}
 
 

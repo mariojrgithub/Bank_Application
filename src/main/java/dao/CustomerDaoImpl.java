@@ -158,7 +158,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public List<TransactionPojo> fetchAllTransactions() throws SystemException {
+	public List<TransactionPojo> fetchAllTransactions(int customerId) throws SystemException {
 		
 		LOG.info("Entered fetchAllTransactions() in DAO");
 
@@ -170,7 +170,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		try {
 			Statement stmt = conn.createStatement();
 
-			String query = "SELECT * FROM transaction_history";
+			String query = "SELECT * FROM transaction_history WHERE from_account_id=" + customerId + " OR to_account_id=" + customerId;
 
 			ResultSet rs = stmt.executeQuery(query);
 

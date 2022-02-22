@@ -21,6 +21,6 @@ public interface CustomerDao {
 	TransactionPojo createNewTransaction(int fromAccountId, int toAccountId, int amountToTransfer) throws SystemException;
 
 	// view all transactions
-	List<TransactionPojo> fetchAllTransactions() throws SystemException;
+	List<TransactionPojo> fetchAllTransactions(int customerId) throws SystemException;
 
 }
