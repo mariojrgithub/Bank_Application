@@ -1,5 +1,6 @@
 # Revature Project 0
 By: Mario Sanchez, Jr.
+Date: 2/23/2022
 
 # Console Based Bank Application
 
@@ -17,7 +18,7 @@ A simple console based application consisting of:
 3. JDBC to access the database from Java
 4. log4j2 to log program information and errors
 
-## Functionality:
+### Functionality:
 
 1. Employees can:
 	- log in
@@ -33,13 +34,13 @@ A simple console based application consisting of:
 	- view their account information
 	- view their transactions
 
-## Tables Created
+### Tables Created:
 
 ![Bank DB Tables](bankDBtables.png "Bank Database Tables")
 
-## Assumptions:
+### Assumptions:
 
-## Improvements Going Forward:
+### Improvements Going Forward:
 
 
 
