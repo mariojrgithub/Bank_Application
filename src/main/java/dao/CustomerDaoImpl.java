@@ -83,13 +83,6 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public TransactionPojo createNewTransaction(int fromAccountId, int toAccountId, int amountToTransfer) throws SystemException {
-
-//		// get from account info
-////		CustomerPojo fromCustomer = null;
-//		CustomerPojo fromCustomer2 = null;
-//		// get to account info
-////		CustomerPojo toCustomer = null;
-//		CustomerPojo toCustomer2 = null;
 		
 		LOG.info("Entered createNewTransaction() in DAO");
 
@@ -103,40 +96,27 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			Statement stmt = conn.createStatement();
 
-//			// obtain to account
-//			String queryTo = "SELECT * FROM customers WHERE customer_id=" + toCustomer.getCustomerId();
-//			
-//			// obtain from account
-//			String queryFrom = "SELECT * FROM customers WHERE customer_id=" + fromCustomer.getCustomerId();
-
-//			ResultSet rsTo = stmt.executeQuery(queryTo);
-
-//			if (rsTo.next()) {
-//				toCustomer2 = new CustomerPojo(rsTo.getInt(1), rsTo.getString(2), rsTo.getString(3), rsTo.getString(4),
-//						rsTo.getLong(5), rsTo.getString(6), rsTo.getLong(7), rsTo.getInt(8), rsTo.getString(9));
-//			}
-//						
-//			ResultSet rsFrom = stmt.executeQuery(queryFrom);
-//			
-//			if (rsFrom.next()) {
-//				fromCustomer2 = new CustomerPojo(rsFrom.getInt(1), rsFrom.getString(2), rsFrom.getString(3), rsFrom.getString(4),
-//						rsFrom.getLong(5), rsFrom.getString(6), rsFrom.getLong(7), rsFrom.getInt(8), rsFrom.getString(9));
-//			}
-
 			// update each customer account
 			String queryUpdateTo = "UPDATE customers SET balance=balance+ " + amountToTransfer + " WHERE customer_id="
 					+ toCustomer.getCustomerId();
-			int rowsTo = stmt.executeUpdate(queryUpdateTo);
+			
 
 			String queryUpdateFrom = "UPDATE customers SET balance=balance- " + amountToTransfer + " WHERE customer_id="
 					+ fromCustomer.getCustomerId();
-			int rowFrom = stmt.executeUpdate(queryUpdateFrom);
+			
 
 			// insert transaction
 			String queryInsertTransaction = "INSERT INTO transaction_history(from_account_id, to_account_id, amount_to_transfer) VALUES("
 					+ fromCustomer.getCustomerId() + ", " + toCustomer.getCustomerId() + ", " + amountToTransfer + ")";
 
+			conn.setAutoCommit(false);
+			
+			int rowsTo = stmt.executeUpdate(queryUpdateTo);
+			int rowFrom = stmt.executeUpdate(queryUpdateFrom);
 			int rows = stmt.executeUpdate(queryInsertTransaction);
+			
+			conn.commit();
+			
 
 			// Obtain transaction
 			String queryTransaction = "SELECT * FROM transaction_history WHERE to_account_id="
@@ -150,6 +130,11 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new SystemException();
+			}
 			throw new SystemException();
 		}
 
