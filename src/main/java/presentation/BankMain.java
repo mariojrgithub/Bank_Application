@@ -41,8 +41,15 @@ public class BankMain {
 			System.out.println("*************************************");
 			System.out.println("Please enter a menu option: ");
 
-			int option = scan.nextInt();
-			scan.nextLine();
+			int option = 0;
+			
+			try {
+				option = scan.nextInt();
+				scan.nextLine();
+			} catch(Exception e) {
+				System.out.println("Not a valid option!");
+				scan.nextLine();
+			}
 
 			List<Integer> mainListOptions = new ArrayList<>();
 			mainListOptions.add(1);
@@ -57,7 +64,7 @@ public class BankMain {
 			System.out.println("*************************************");
 
 			switch (option) {
-
+			
 			case 1:
 
 				EmployeePojo foundEmployee = null;
@@ -124,8 +131,16 @@ public class BankMain {
 					employeeListOptions.add(2);
 					employeeListOptions.add(3);
 					employeeListOptions.add(4);
-
-					int option2 = scan.nextInt();
+					
+					int option2 = 0;
+					
+					try {
+						option2 = scan.nextInt();
+						scan.nextLine();
+					} catch(Exception e) {
+						System.out.println("Not a valid option!");
+						scan.nextLine();
+					}
 
 					// make sure valid option is selected
 					if (!employeeListOptions.contains(option2)) {
@@ -324,8 +339,16 @@ public class BankMain {
 					customerListOptions.add(2);
 					customerListOptions.add(3);
 					customerListOptions.add(4);
-
-					int option2 = scan.nextInt();
+					
+					int option2 = 0;
+					
+					try {
+						option2 = scan.nextInt();
+						scan.nextLine();
+					} catch(Exception e) {
+						System.out.println("Not a valid option!");
+						scan.nextLine();
+					}
 
 					// make sure valid option is selected
 					if (!customerListOptions.contains(option2)) {
