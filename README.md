@@ -39,6 +39,9 @@ A simple console-based application consisting of:
 ![Bank DB Tables](bankDBtables.png "Bank Database Tables")
 
 ### Assumptions:
+1. Employees can only add customers, not delete them.
+2. Customers can only make transfers, not deposit, withdraw or create their own account.
+3. Customers only have one account as opposed to having a seperate savings and checking account.
 
 ### Improvements Going Forward:
 1. Create a properties file so that the database's login information is not visible in the Java code.
